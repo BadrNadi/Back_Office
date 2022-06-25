@@ -1,0 +1,278 @@
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" style="color:white;">
+    Agent Manager</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarColor02">
+     <ul class="navbar-nav mr-auto">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addEmployeeModal">
+Add Agent
+</button>
+     </ul>
+    
+  </div>
+</nav>
+<div class="container" id="main-container">
+  <div class="row">
+  <div *ngFor="let agent of agents" class="col-md-6 col-xl-3">
+     <div class="card m-b-30">
+        <div class="card-body row">
+           <div class="col-6">
+              <!-- <a href=""><img src="http://bootdey.com/img/Content/avatar/avatar{{agent.id}}.png" alt="" class="img-fluid rounded-circle w-60"></a> -->
+           </div>
+           <div class="col-6 card-title align-self-center mb-0">
+              <h5>{{agent?.id}}</h5>
+              <p class="m-0">{{agent?.name}}{{" "+agent?.lastname }}</p>
+           </div>
+        </div>
+        <ul class="list-group list-group-flush">
+           <li class="list-group-item"><i class="fa fa-envelope float-right"></i>{{agent?.email}}</li>
+           <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : {{agent?.numerotele}}</li>
+            
+          </ul>
+        <div class="card-body">
+           <div class="cartona float-right btn-group btn-group-sm">
+            <button type="button" class="btn btn-primary" data-toggle="modal" (click)="onOpenModal(agent,'edit')">
+  
+              <i class="fa fa-pencil"></i> </button>
+              <button type="button" class="btn btn-primary" data-toggle="modal"(click)="onOpenModal(agent,'delete')">
+  
+               <i class="fa fa-times"></i></button>
+           </div>
+        </div>
+     
+  
+</div>
+ 
+        </div>
+
+
+<!-- Update -->
+<div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+       <div class="modal-header">
+          <h5 class="modal-title" id="addEmployeeModalLabel">Update Agent</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+       </div>
+       
+       <div class="modal-body">
+          <form #addForm1="ngForm">
+            <div class="div2">
+               <div class="form-group">
+            <label for="Email">Email address</label>
+            <input ngModel="{{editagent?.email}}" name="email"  type="email" (change)="log(email.untouched) "class="form-control Email" id="mail1" aria-describedby="emailHelp" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" placeholder="Entrer email"required>
+               </div>
+
+               <div class="form-group">
+                <label for="numerotele">NumerotelePhone</label>
+                <input ngModel="{{editagent?.numerotele}}" name="numerotele" type="text" required  class="form-control Email" id="password" placeholder="NumerotelePhone" >
+              </div>
+            </div>
+            <div class="div2">
+              <div class="form-group">
+                <label for="matriculation">Matriculation</label>
+                <input ngModel="{{editagent?.matriculation}}" name="matriculation" type="text" required  class="form-control Email" id="password" placeholder="Matriculation" >
+              </div>
+              <div class="form-group">
+                <label for="patente">Patente</label>
+                <input ngModel="{{editagent?.patente}}" name="patente" type="text" required  class="form-control Email" id="password" placeholder="Patente" >
+              </div>
+            </div>
+            <div class="div2">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input ngModel="{{editagent?.name}}" name="name" type="text" required  class="form-control Email" id="password" placeholder="Name" >
+              
+              </div>
+              <div class="form-group">
+                <label for="lastname">LastName</label>
+                <input ngModel="{{editagent?.lastname}}" name="lastname" type="text" required  class="form-control Email" id="password" placeholder="LastName" >
+              </div>
+            </div>
+            <div class="div2">
+              <div class="form-group">
+                <div class="mt-1">
+                  <label for="fichier" class="form-label">Choisir un Fichier</label>
+                  <input ngModel name="fichier" #fichier="ngModel" class="form-control Email" type="file" id="fichier" multiple>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fichier" class="form-label">Choisir la carte de verification</label>
+                <select required class="form-select form-select-lg mt-1 Email El1" aria-label=".form-select-lg example" ngModel name="piece" #piece="ngModel">                  
+                  <label for="fichier" class="form-label">Choisir la carte de verification</label>
+                  <option value="CIN">C.I.N</option>
+                  <option value="Passport">Passport</option>
+                  <option value="CNE">C.N.E</option>
+                </select>
+               </div>
+            </div>
+            <div class="div2">
+              <div class="form-group ">
+                <label for="date">Date de Naissance</label>
+                <input ngModel name="date" #date="ngModel" type="date" required  class="form-control Email" id="date" placeholder="Date">
+              </div>
+              </div>
+            <div class="div2">
+              <input ngModel="{{editagent?.id}}" name="id" type="hidden" required  class="form-control Email" id="patente" placeholder="id" >
+              <input ngModel="{{editagent?.password}}" name="password" type="hidden" required  class="form-control Email" id="patente" placeholder="Password" pattern="[0-9]{5,15}$">
+            </div>
+          <div class="modal-footer">
+             <button type="button" id="close-employee-form2" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             <button (click)="updateagent(addForm1.value)" type="submit" class="btn btn-primary" >Save</button>
+          </div>
+          
+          </form>
+       </div>
+    </div>
+  </div>
+  </div>
+  <!-- Add -->
+  <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="addEmployeeModalLabel">Add Agent</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         
+         <div class="modal-body">
+            <form #addForm="ngForm" (ngSubmit)="onAddAgent(addForm)">
+              <div class="div2">
+            <div class="form-group">
+              <label for="Email">Email address</label>
+              <input ngModel name="email"  #email="ngModel"  type="email" (change)="log(email.untouched) "class="form-control Email" id="mail1" aria-describedby="emailHelp" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" placeholder="Entrer email"required>
+            </div>
+            <div class="form-group">
+              <label for="Email">Confirmation Email</label>
+              <input ngModel name="email1" #email1="ngModel"  type="email" (change)="log(email.untouched) "class="form-control Email" id="mail2" aria-describedby="emailHelp" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" placeholder="Verify email" required>
+              <div id="emailHelp" class="alert alert-danger" *ngIf="!toogle">Email Doesnt Match</div>
+            </div>
+              </div>
+              <div class="div2">
+            <div class="form-group">
+              <div class="form-group mt-1">
+                <label for="name">Nom</label>
+                <input ngModel name="name" #name="ngModel"  type="text" class="form-control Email" id="name" aria-describedby="emailHelp" pattern="[A-Za-z]{4,63}$" placeholder="Entrer Votre Nom"required>
+
+            </div>
+            </div>
+            <div class="form-group">
+              <div class="mt-1">
+                <label for="fichier" class="form-label">Choisir un Fichier</label>
+                <input ngModel name="fichier" #fichier="ngModel" class="form-control Email" type="file" id="fichier" multiple>
+              </div>
+            </div>
+              </div>
+              <div class="div2">
+              <div class="form-group">
+              <label for="lastname">Prenom</label>
+              <input ngModel name="lastname" #lastname="ngModel"  type="text" (change)="log(name.untouched) "class="form-control Email" id="lastname" aria-describedby="emailHelp" pattern="[A-Za-z]{3,63}$" placeholder="Entrer Votre Prenom" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="numerotele">Nº Telephone</label>
+                    <input ngModel name="numerotele" #numerotele="ngModel" type="tel"  class="form-control Email" id="numerotele" placeholder="Telephone" pattern="[0-9]{10,10}$" required>
+                  </div>
+              </div>
+              <div class="div2">
+                <div class="form-group">
+                  <label for="matriculation">Nº Matriculation</label>
+                  <input ngModel name="matriculation" #matriculation="ngModel" type="text"  class="form-control Email" id="matriculation" placeholder="Matriculation" pattern="[0-9]{10,15}$" required>
+                </div>
+                <div class="form-group">
+                  <label for="patente">Nº Patente</label>
+                  <input ngModel name="patente" #patente="ngModel" type="text" required  class="form-control Email" id="patente" placeholder="Patente" pattern="[0-9]{5,15}$">
+                </div>
+              </div>
+              <div class="div2">
+                <div class="form-group ">
+                  <label for="date">Date de Naissance</label>
+                  <input ngModel name="date" #date="ngModel" type="date" required  class="form-control Email" id="date" placeholder="Date">
+                </div>
+                <div class="form-group">
+                <select required class="form-select form-select-lg mt-4 Email El1" aria-label=".form-select-lg example" ngModel name="piece" #piece="ngModel">                  
+                  <option selected>Choisir la carte de verification</option>
+                  <option value="CIN">C.I.N</option>
+                  <option value="Passport">Passport</option>
+                  <option value="CNE">C.N.E</option>
+                </select>
+                </div>
+              </div>
+  
+            <div class="modal-footer">
+               <button type="button" id="close-employee-form1" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button  (click)="validateEmail(addForm.value['email'],addForm.value['email1'])" type="submit" class="btn btn-primary" >Save</button>
+            </div>
+            </form>
+         </div>
+      </div>
+    </div>
+    </div>
+   
+
+    <!-- DElete -->
+    <div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="deleteModelLabel">Delete Employee</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+             
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  <button (click)="deleteagent(deletagent?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    </div>
+ 
+    <div *ngIf="agents?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+      <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">NO Agents!</h4>
+        <p>The Bank doesnt have any Agents</p>
+      </div>
+      </div>
+    
+      <!-- div class="row">
+  <div *ngFor="let agent of agents" class="col-md-6 col-xl-3">
+     <div class="card m-b-30">
+        <div class="card-body row">
+           <div class="col-6">
+            
+           </div>
+           <div class="col-6 card-title align-self-center mb-0">
+              <h5>{{agent?.id}}</h5>
+              <p class="m-0">{{agent?.name}}{{" "+agent?.lastname }}</p>
+           </div>
+        </div>
+        <ul class="list-group list-group-flush">
+           <li class="list-group-item"><i class="fa fa-envelope float-right"></i>{{agent?.email}}</li>
+           <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : {{agent?.numerotele}}</li>
+            
+          </ul>
+        <div class="card-body">
+           <div class="cartona float-right btn-group btn-group-sm">
+            <button type="button" class="btn btn-primary" data-toggle="modal" (click)="onOpenModal(agent,'edit')">
+  
+              <i class="fa fa-pencil"></i> </button>
+              <button type="button" class="btn btn-primary" data-toggle="modal"(click)="onOpenModal(agent,'delete')">
+  
+               <i class="fa fa-times"></i></button>
+           </div>
+        </div>
+     </div>
+  </div>
+</div> -->
